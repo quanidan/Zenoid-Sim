@@ -448,3 +448,14 @@ export async function latestMemoryOfType<T extends MemoryType>(
   if (!entry) return null;
   return entry as MemoryOfType<T>;
 }
+import { internalMutation } from "../../_generated/server";
+
+export const applyHooks = internalMutation(async (ctx) => {
+  const w = await ctx.db.query("worldState").first();
+  const d = w.day;
+
+  if (d === 1) {
+    // Initial memory injections
+    console.log("🧠 Memory Hook: Day 1 imprint triggered");
+  }
+});
